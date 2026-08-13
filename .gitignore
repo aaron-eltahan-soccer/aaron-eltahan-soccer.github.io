@@ -1,0 +1,5 @@
+schedule.json
+__pycache__/
+*.pyc
+.env
+schedule.json
