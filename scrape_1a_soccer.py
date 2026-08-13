@@ -131,59 +131,80 @@ def main():
             browser.close()
             sys.exit(1)
 
-        # Collect booked reservations from captured responses
+        # Process initial page load responses
+        booked_url_template = None
         for c in captured:
             if "GetBookedReservations" in c["url"]:
+                booked_url_template = c["url"]
+
+        # Collect booked reservations from captured responses
+        for c in captured:
+            if "BookedReservations" in c["url"] or "FilterResults" in c["url"]:
                 body = c["body"]
                 if isinstance(body, list):
-                    all_bookings.extend(body)
+                    for item in body:
+                        if isinstance(item, dict) and item.get("title"):
+                            all_bookings.append(item)
 
-        # Click forward through calendar weeks to get future bookings
-        print("Checking future weeks...")
-        for week in range(4):
+        print(f"  Current week from page load: {len(all_bookings)} session(s)")
+
+        # Navigate calendar using the correct button selectors
+        print("\nScanning future weeks...")
+        for week in range(6):
             captured.clear()
             try:
-                next_btn = page.query_selector("button.fc-next-button, .fc-next-button")
-                if next_btn:
-                    next_btn.click()
-                    page.wait_for_timeout(4000)
+                btn = page.query_selector(".calendar-next")
+                if btn:
+                    btn.click()
+                    page.wait_for_timeout(5000)
+                    count = 0
                     for c in captured:
-                        if "GetBookedReservations" in c["url"]:
+                        if "BookedReservations" in c["url"]:
                             body = c["body"]
                             if isinstance(body, list):
-                                all_bookings.extend(body)
-                                if body:
-                                    print(f"  Week +{week+1}: {len(body)} session(s)")
-            except Exception:
-                break
+                                for item in body:
+                                    if isinstance(item, dict) and item.get("title"):
+                                        all_bookings.append(item)
+                                        count += 1
+                    print(f"  Week +{week+1}: {count} session(s)")
+                else:
+                    print(f"  Week +{week+1}: next button not found")
+                    break
+            except Exception as e:
+                print(f"  Week +{week+1}: error - {e}")
 
-        # Also check past weeks
-        print("Checking past weeks...")
-        # Go back to current week first
+        # Go back to today
         try:
-            today_btn = page.query_selector("button.fc-today-button, .fc-today-button")
+            today_btn = page.query_selector(".calendar-today")
             if today_btn:
                 today_btn.click()
-                page.wait_for_timeout(2000)
+                page.wait_for_timeout(3000)
         except Exception:
             pass
 
-        for week in range(2):
+        print("Scanning past weeks...")
+        for week in range(4):
             captured.clear()
             try:
-                prev_btn = page.query_selector("button.fc-prev-button, .fc-prev-button")
-                if prev_btn:
-                    prev_btn.click()
-                    page.wait_for_timeout(4000)
+                btn = page.query_selector(".calendar-prev")
+                if btn:
+                    btn.click()
+                    page.wait_for_timeout(5000)
+                    count = 0
                     for c in captured:
-                        if "GetBookedReservations" in c["url"]:
+                        if "BookedReservations" in c["url"]:
                             body = c["body"]
                             if isinstance(body, list):
-                                all_bookings.extend(body)
-                                if body:
-                                    print(f"  Week -{week+1}: {len(body)} session(s)")
-            except Exception:
-                break
+                                for item in body:
+                                    if isinstance(item, dict) and item.get("title"):
+                                        all_bookings.append(item)
+                                        count += 1
+                    print(f"  Week -{week+1}: {count} session(s)")
+                else:
+                    print(f"  Week -{week+1}: prev button not found")
+                    break
+            except Exception as e:
+                print(f"  Week -{week+1}: error - {e}")
 
         browser.close()
 
@@ -213,6 +234,7 @@ def main():
         return {
             "title": s.get("title", ""),
             "date": start_dt.strftime("%A, %B %d, %Y") if start_dt else "",
+            "sort_key": start_dt.isoformat() if start_dt else "",
             "start_time": start_dt.strftime("%I:%M %p") if start_dt else "",
             "end_time": end_dt.strftime("%I:%M %p") if end_dt else "",
             "tz": s.get("timeZoneAbbreviation", ""),
@@ -221,7 +243,7 @@ def main():
             "can_cancel": s.get("canCancelReservation", False),
         }
 
-    booked = sorted([fmt(s) for s in unique_bookings if s.get("title")], key=lambda x: x["date"])
+    booked = sorted([fmt(s) for s in unique_bookings if s.get("title")], key=lambda x: x["sort_key"])
 
     print(f"\n{'─'*60}")
     print(f"  YOUR BOOKED SESSIONS ({len(booked)})")
