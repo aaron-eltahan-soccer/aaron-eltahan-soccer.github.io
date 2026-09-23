@@ -7,10 +7,8 @@ from reportlab.lib.pagesizes import letter
 from reportlab.lib.styles import ParagraphStyle, getSampleStyleSheet
 from reportlab.lib.units import inch
 from reportlab.platypus import (
-    KeepTogether,
     ListFlowable,
     ListItem,
-    PageBreak,
     Paragraph,
     SimpleDocTemplate,
     Spacer,
@@ -40,8 +38,8 @@ SECTION = ParagraphStyle(
     parent=styles["Heading2"],
     fontName="Helvetica-Bold",
     fontSize=11,
-    spaceBefore=10,
-    spaceAfter=4,
+    spaceBefore=8,
+    spaceAfter=3,
     textColor=colors.HexColor("#111827"),
 )
 BODY = ParagraphStyle(
@@ -172,12 +170,10 @@ def build():
     )
     story.append(Paragraph("June 2026 – Present", DATE))
     story.append(bullets([
-        "Assists with overall administration of facility operations and special events under close supervision.",
-        "Greets visitors, answers questions, and provides information to patrons.",
-        "Sets up and takes down event equipment (tables, chairs, signage, and related items).",
+        "Assists with facility operations and special events under close supervision.",
+        "Greets visitors, sets up/takes down event equipment, and provides information to patrons.",
         "Monitors facility areas for usage, participant behavior, and security.",
-        "Enforces facility regulations in a professional and respectful manner.",
-        "Performs custodial duties, basic maintenance, and assists with food and beverage operations as needed.",
+        "Enforces facility regulations; performs custodial duties and assists with food/beverage operations.",
     ]))
     story.append(
         Paragraph(
@@ -191,11 +187,9 @@ def build():
     story.append(Paragraph("EP Sports Academy, Austin, TX", ORG))
     story.append(Paragraph("January 2026 – Present (ongoing)", DATE))
     story.append(bullets([
-        "Selected for a structured mentorship program focused on leadership, responsibility, and skill development.",
-        "Assigned a mentor to guide learning through real-world coaching, event operations, and youth program support.",
+        "Selected for a mentorship program focused on leadership, coaching, and event operations.",
         "Assist with youth soccer activities including practice support, warm-ups, and small-sided games.",
-        "Learn to follow operational procedures, manage time commitments, and receive formal feedback on performance.",
-        "Program includes regular check-ins, written evaluations, and opportunities to progress to paid roles.",
+        "Receive formal feedback through regular check-ins and written evaluations.",
     ]))
 
     story.append(Paragraph("Lifeguard", JOB_TITLE))
@@ -203,13 +197,8 @@ def build():
     story.append(Paragraph("May 2025 – August 2025", DATE))
     story.append(bullets([
         "Worked in a safety-critical environment requiring constant situational awareness.",
-        "Performed routine inspections of assigned areas and equipment.",
-        "Identified hazards and responded quickly to prevent incidents.",
-        "Followed established safety protocols and emergency procedures.",
-        "Communicated clearly with supervisors and team members during peak operations.",
+        "Performed inspections, followed emergency procedures, and communicated clearly during peak operations.",
     ]))
-
-    story.append(PageBreak())
 
     story.append(Paragraph("Athletics &amp; Leadership Experience", SECTION))
     story.append(Paragraph("Elite Soccer Athlete — Lonestar SC", JOB_TITLE))
@@ -238,11 +227,8 @@ def build():
 
     story.append(Paragraph("Recent Showcases &amp; Events", JOB_TITLE))
     story.append(bullets([
-        "Trinity Univ Men's College Prep / ID — Aug 1–2, 2026, San Antonio TX",
-        "Texas Elite Men's Combine — Jul 25–26, 2026, Round Rock TX",
-        "Texas Lutheran Univ Men's College Prep / ID — Jul 10–12, 2026, Seguin TX",
-        "Lonestar Boys College ID Camp — Jun 21, 2026, San Antonio TX",
-        "St. Edwards College Prep ID Clinic — Dec 13–14, 2025, Austin TX",
+        "Trinity Univ, Texas Elite, and Texas Lutheran college ID events — Summer 2026",
+        "Lonestar Boys College ID Camp — Jun 2026; St. Edwards ID Clinic — Dec 2025",
     ]))
 
     story.append(Paragraph("Skills &amp; Strengths", SECTION))
