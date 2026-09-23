@@ -163,16 +163,29 @@ def build():
     ]))
 
     story.append(Paragraph("Work &amp; Mentorship Experience", SECTION))
-    story.append(Paragraph("Lifeguard", JOB_TITLE))
-    story.append(Paragraph("Kalahari Resorts &amp; Conventions, Round Rock, TX", ORG))
-    story.append(Paragraph("May 2025 – August 2025", DATE))
+    story.append(Paragraph("Event Assistant", JOB_TITLE))
+    story.append(
+        Paragraph(
+            "City of Round Rock — Sports Management &amp; Tourism, Round Rock Sports Center, Round Rock, TX",
+            ORG,
+        )
+    )
+    story.append(Paragraph("June 2026 – Present", DATE))
     story.append(bullets([
-        "Worked in a safety-critical environment requiring constant situational awareness.",
-        "Performed routine inspections of assigned areas and equipment.",
-        "Identified hazards and responded quickly to prevent incidents.",
-        "Followed established safety protocols and emergency procedures.",
-        "Communicated clearly with supervisors and team members during peak operations.",
+        "Assists with overall administration of facility operations and special events under close supervision.",
+        "Greets visitors, answers questions, and provides information to patrons.",
+        "Sets up and takes down event equipment (tables, chairs, signage, and related items).",
+        "Monitors facility areas for usage, participant behavior, and security.",
+        "Enforces facility regulations in a professional and respectful manner.",
+        "Performs custodial duties, basic maintenance, and assists with food and beverage operations as needed.",
     ]))
+    story.append(
+        Paragraph(
+            "Supervisor: Emma Baker, Assistant Coordinator – Sports Events — "
+            "737-610-5416, rrsportscenter.com",
+            BODY,
+        )
+    )
 
     story.append(Paragraph("Junior Leader Mentorship Participant", JOB_TITLE))
     story.append(Paragraph("EP Sports Academy, Austin, TX", ORG))
@@ -183,6 +196,17 @@ def build():
         "Assist with youth soccer activities including practice support, warm-ups, and small-sided games.",
         "Learn to follow operational procedures, manage time commitments, and receive formal feedback on performance.",
         "Program includes regular check-ins, written evaluations, and opportunities to progress to paid roles.",
+    ]))
+
+    story.append(Paragraph("Lifeguard", JOB_TITLE))
+    story.append(Paragraph("Kalahari Resorts &amp; Conventions, Round Rock, TX", ORG))
+    story.append(Paragraph("May 2025 – August 2025", DATE))
+    story.append(bullets([
+        "Worked in a safety-critical environment requiring constant situational awareness.",
+        "Performed routine inspections of assigned areas and equipment.",
+        "Identified hazards and responded quickly to prevent incidents.",
+        "Followed established safety protocols and emergency procedures.",
+        "Communicated clearly with supervisors and team members during peak operations.",
     ]))
 
     story.append(PageBreak())
