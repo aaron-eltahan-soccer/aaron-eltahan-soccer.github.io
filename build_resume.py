@@ -185,11 +185,10 @@ def build():
 
     story.append(Paragraph("Junior Leader Mentorship Participant", JOB_TITLE))
     story.append(Paragraph("EP Sports Academy, Austin, TX", ORG))
-    story.append(Paragraph("January 2026 – Present (ongoing)", DATE))
+    story.append(Paragraph("Summer 2026", DATE))
     story.append(bullets([
-        "Selected for a mentorship program focused on leadership, coaching, and event operations.",
-        "Assist with youth soccer activities including practice support, warm-ups, and small-sided games.",
-        "Receive formal feedback through regular check-ins and written evaluations.",
+        "Participated in a junior leader mentorship program focused on coaching basics and event support.",
+        "Helped with youth soccer sessions, including warm-ups and small-sided activities.",
     ]))
 
     story.append(Paragraph("Lifeguard", JOB_TITLE))
